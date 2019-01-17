@@ -8,12 +8,12 @@ fn_xls = "./empleados.xlsx"
 image_dictionary = [
     {
         "src": "./mesquita.png",
-        "style": "display:block;height:100px;",
+        "style": "display:block;height:100px;margin: 12px 0;",
         "alt": "mesquita-logo"
     },
     {
         "src": "./iram_2015.png",
-        "style": "display:block;height:100px;margin-top:20px;",
+        "style": "display:block;height:100px;margin: 12px 0;",
         "alt": "iram-logo"
     }
 ]
