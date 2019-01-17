@@ -55,7 +55,7 @@ def write_out():
         string_out = string_in
         for key in employee_dictionary.keys():
             string_out = string_out.replace(key, employee_dictionary[key])
-            fn_out = f'./out/Firma_{employee_dictionary["#NOMBRE#"]}.html'
+            fn_out = f'./out/Firma_{employee_dictionary["#NOMBRE#"]}.html'.replace(' ', '_')
         with open(fn_out, "w+") as f_out:
             image_string_out = ""
             for idx, image in enumerate(image_dictionary):
