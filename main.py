@@ -1,7 +1,28 @@
+
 import xlrd
+import base64
 
 fn_html_template = "./firma.html"
 fn_xls = "./empleados.xlsx"
+
+image_dictionary = [
+    {
+        "src": "./mesquita.png",
+        "style": "display:block;height:100px;",
+        "alt": "mesquita-logo"
+    },
+    {
+        "src": "./iram_2015.png",
+        "style": "display:block;height:100px;margin-top:20px;",
+        "alt": "iram-logo"
+    }
+]
+
+def load_image_dictionary_with_base64_images():
+    for image in image_dictionary:
+        with open(image["src"], "rb") as image_file:
+            image["base64"] = base64.b64encode(image_file.read()).decode("utf-8")
+
 
 def load_employee_dictionaries():
 
@@ -22,12 +43,13 @@ def load_employee_dictionaries():
         employee_dictionaries.append(employee_info)
 
     employee_dictionaries.pop(0) #the first entry on the list is the first row of the xls, which is the keys to the dictionary
-    
+
     return employee_dictionaries
 
 def write_out():
 
     employee_dictionaries = load_employee_dictionaries()
+    load_image_dictionary_with_base64_images()
 
     for employee_dictionary in employee_dictionaries:
         string_out = string_in
@@ -35,9 +57,12 @@ def write_out():
             string_out = string_out.replace(key, employee_dictionary[key])
             fn_out = f'./out/Firma_{employee_dictionary["#NOMBRE#"]}.html'
         with open(fn_out, "w+") as f_out:
+            image_string_out = ""
+            for idx, image in enumerate(image_dictionary):
+                image_string_out += f'<img src="data:image/png;filename=file{idx};base64,{image["base64"]}" style="{image["style"]}" alt="{image["alt"]}"></img>\n'
+            
+            string_out = string_out.replace("#IMAGENES#", image_string_out)
             f_out.write(string_out)
-    
-   
 
 with open(fn_html_template) as f_template:
     string_in = f_template.read()
