@@ -3,7 +3,7 @@ import xlrd
 import base64
 
 fn_html_template = "./firma.html"
-fn_xls = "./empleados.xlsx"
+fn_xls = "./empleados.xls"
 
 image_dictionary = [
     {
